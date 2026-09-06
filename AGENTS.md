@@ -14,6 +14,19 @@ Only `name` and `description` load at discovery time. The body loads once the de
 
 Read the description first. If it carries a negative trigger — "Do not use for X — use `other-skill`" — honour it. Those exist because two skills would otherwise compete for the same request.
 
+## Cybersecurity article requests
+
+- If a prompt contains only a URL, open and inspect the URL before doing any
+  analysis, then create the article using the workflow and output structure in
+  [`article.md`](article.md).
+- If the URL cannot be accessed, stop. Tell the user that the URL cannot be
+  accessed; do not continue with a partial, inferred, or title-only analysis.
+- A user may provide the article text directly and ask, "buat artikel menggunakan
+  panduan article.md". In that case, treat the supplied text as the source and
+  follow [`article.md`](article.md).
+- Important factual claims must be traceable to the supplied URL or text. Clearly
+  label analytical inference and never invent missing technical details.
+
 ## Changing a skill
 
 Frontmatter is parsed by `tools/skill_frontmatter.py`, which uses PyYAML. Do not write a regex frontmatter parser; CI fails the build if it detects one. Three hand-rolled parsers previously truncated 604 of 817 descriptions to their first line.
